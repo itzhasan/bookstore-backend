@@ -7,6 +7,7 @@ const searchandfilter= require('./searchandfilter');
 const router = Router();
 
 router.get('/getbooks',isAuthenticated,booksController.getBooks);
+//http://localhost:8000/books/getbooks?limit=9&offset=0
 router.post('/addbook',isAuthenticated,booksController.addBook);
 router.put('/editbook/:id',isAuthenticated, booksController.editbook);
 router.delete('/deletebook/:id',isAuthenticated,booksController.deleteBook);

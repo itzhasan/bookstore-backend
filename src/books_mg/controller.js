@@ -3,10 +3,15 @@ const queries = require('./query')
 const bodyParser = require('body-parser');
 
 const getBooks =async (req,res)=>{
-    await pool.query(queries.addbook,(error,results)=>{
-               if(error) throw error;
-               res.status(200).json(results.rows)
-          })
+  try {
+    const { limit = 10, offset = 0 } = req.query;
+    const queryText = queries.getBooks;
+    const { rows } = await pool.query(queryText, [limit, offset]);
+    res.json(rows);
+  } catch (err) {
+    console.error('Error executing query', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
   
   }
 
